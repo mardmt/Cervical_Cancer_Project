@@ -1,0 +1,6 @@
+"Risk_Factor","OR","P_Value"
+"Age",1.061,0.0018
+"Number.of.sexual.partners",0,0.9989
+"Num.of.pregnancies",1739079.498,0.993
+"Smokes",0.779,0.7422
+"STDs",1.068,0.9308
