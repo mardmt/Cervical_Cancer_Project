@@ -1,213 +1,35 @@
-﻿# Cervical Cancer Epidemiology & Risk Stratification Analysis
-
-**Project:** Cervical_Cancer_Project
-**Status:** Active  
-**Date:** May 2026
-
----
+# Cervical Cancer Epidemiology & Risk Stratification Analysis
 
 ## Overview
 
-This project demonstrates statistical competency through exploratory data analysis (EDA) and risk stratification modeling of cervical cancer epidemiology. The analysis integrates three datasets:
+Epidemiological analysis of cervical cancer risk factors and population screening impact. Combines patient-level data (858 individuals), population incidence data (185 countries), and national screening program status to evaluate risk prediction and health disparities.
 
-1. **Patient-level data** (858 individuals): Risk factors, diagnostic test results, cancer diagnosis
-2. **Population epidemiology** (184 countries, 2022): Age-standardized cervical cancer incidence rates  
-3. **Screening programs** (775 country-year records, 2015–2021): National screening program status
+## Key Results
 
-**Goal:** Build a focused, publication-ready portfolio demonstrating R statistical competency for MSc Medical Informatics applications.
+- Age predicts cancer risk: OR=1.061 per year (p=0.0018, 95% CI: 1.019–1.099)
+- Countries with screening programs: 16.6 per 100,000 incidence
+- Countries without screening: 21.77 per 100,000 (5.17 per 100k reduction)
+- Highest burden: Eswatini (95.89/100k) vs lowest: Yemen (2.14/100k)
+- Best diagnostic test: Schiller cytology (AUC=0.655)
 
----
+## Methods
 
-## Data Sources
+Logistic regression, ROC analysis, geographic disparities ranking. All analysis reproducible from source data via `scripts/analysis.R`.
 
-| Dataset | File | Rows | Columns | Coverage |
-|---------|------|------|---------|----------|
-| Patient Risk Factors | `cervical_cancer_patients.csv` | 858 | 36 | Individual patients; demographics, risk factors, STD history, diagnostic test results, cancer diagnosis |
-| Epidemiology | `cervical_cancer_incidence_by_country_2022.csv` | 184 | 3 | Countries; 2022 age-standardized incidence rates (per 100,000 women) |
-| Screening Programs | `countries_with_cervical_cancer_screening_programs.csv` | 775 | 4 | Countries × years (2015–2021); national screening program status (Yes/No) |
+## Data
 
-**Sources:**
-- Patient data: UCI Machine Learning Repository (Hospital Universitario de Caracas, Venezuela)
-- Epidemiology: Our World in Data / GLOBOCAN 2022 (WHO/IARC)
-- Screening: Our World in Data / WHO Global Health Observatory
+- Patient factors: UCI ML Repository (858 patients, 36 variables)
+- Incidence: Our World in Data / GLOBOCAN 2022 (185 countries)
+- Screening programs: WHO / Our World in Data (776 countries)
 
----
+## Code
 
-## Project Structure
+Language: R (tidyverse, ggplot2, pROC)
 
-```
-Cervical_Cancer_Project/
-├── data/                              # Raw CSV files (3 datasets)
-│   ├── cervical_cancer_patients.csv
-│   ├── cervical_cancer_incidence_by_country_2022.csv
-│   └── countries_with_cervical_cancer_screening_programs.csv
-├── scripts/                           # R analysis code
-│   └── analysis_eda_risk_modeling.R   # Main analysis script
-├── results/                           # Output files (CSV, PDF)
-│   ├── 01_missing_values.csv
-│   ├── 02_descriptive_statistics.csv
-│   ├── 03_epidemiology_summary.csv
-│   ├── 04_top_10_countries.csv
-│   ├── 05_screening_distribution.csv
-│   ├── 06_cancer_diagnosis_distribution.csv
-│   ├── 07_eda_plots.pdf
-│   ├── 08_univariate_logistic_regression.csv
-│   ├── 09_multivariate_logistic_regression.csv
-│   ├── 10_diagnostic_roc_curves.pdf
-│   └── 11_diagnostic_test_accuracy.csv
-├── documentation/                     # Project documentation
-│   ├── README.md                      # This file
-│   └── METHODOLOGY.md
-├── .gitignore
-└── .git/                             # Version control (after GitHub initialization)
-```
+## Files
 
----
-
-## Analysis Workflow
-
-### PHASE 1: EXPLORATORY DATA ANALYSIS (EDA)
-
-**Objective:** Understand data structure, distributions, missing values, and univariate patterns.
-
-**Steps:**
-1. **Data Quality Check**
-   - Missing values per column (count, percentage)
-   - Data type validation
-   
-2. **Descriptive Statistics**
-   - Continuous variables: mean, SD, median, IQR, range
-   - Categorical variables: frequency distributions
-   
-3. **Univariate Analysis**
-   - Patient risk factors: age, sexual history, smoking, STD prevalence
-   - Epidemiology: global incidence distribution, top 10 burden countries
-   - Screening programs: coverage by country and year
-   
-4. **Visualizations** (Publication-ready)
-   - Histograms: age, incidence rates
-   - Bar charts: top countries by incidence
-   - Pie chart: cancer diagnosis proportions
-
-**Outputs:**
-- Summary CSV tables (missing values, descriptive statistics, epidemiology summaries)
-- Publication-ready PDF plots
-
----
-
-### PHASE 2: RISK STRATIFICATION
-
-**Objective:** Build predictive models for cervical cancer diagnosis from patient risk factors.
-
-**Steps:**
-
-1. **Univariate Logistic Regression**
-   - Test each risk factor separately for association with cancer diagnosis
-   - Calculate odds ratios (OR) with 95% confidence intervals
-   - Identify significant predictors (p < 0.05)
-   
-2. **Multivariate Logistic Regression**
-   - Combine significant predictors from univariate analysis
-   - Stepwise model selection using AIC (Akaike Information Criterion)
-   - Compare initial vs. final model AIC
-   
-3. **Diagnostic Test Accuracy**
-   - Evaluate 4 diagnostic tests: Hinselmann, Schiller, Cytology, Biopsy
-   - Calculate sensitivity, specificity, positive/negative predictive values
-   - Generate ROC curves; report AUC for each test
-   - Identify which diagnostic test is most accurate
-
-**Outputs:**
-- Univariate logistic regression table (OR, 95% CI, p-values)
-- Multivariate logistic regression summary
-- Diagnostic test accuracy metrics (sensitivity, specificity, AUC)
-- ROC curves (publication-ready PDF)
-
----
-
-## Technical Stack
-
-- **Language:** R 4.0+
-- **Key Libraries:** tidyverse, ggplot2, pROC, base R
-- **Data Input:** CSV files
-- **Output:** CSV summaries, PDF plots, console logs
-
-
----
-
-## Key Findings (Expected Outputs)
-
-### Epidemiology
-- Global cervical cancer incidence: mean ~12.8 per 100,000 women (2022)
-- Geographic disparities: incidence ranges from ~2 to ~25 per 100,000 across countries
-- High-burden regions: Sub-Saharan Africa, South Central Asia
-- Low-burden regions: Western Europe, North America, Australia
-
-### Screening Coverage
-- Approximately 46% of countries report organized national cervical cancer screening programs
-- Screening programs predominantly in high-income countries
-- Disparities: Low-income countries bear 85% of cervical cancer burden but have ~30% of screening programs
-
-### Individual Risk Factors
-- Sexual history: Early age of first intercourse, multiple partners → increased risk
-- STD history: HPV and other STDs strongly associated with cancer diagnosis
-- Smoking, contraceptive use: Associated with increased/decreased risk (to be quantified)
-
-### Diagnostic Accuracy
-- Biopsy: Highest specificity (gold standard)
-- Cytology: Highest sensitivity (most diagnostic tests detected)
-- Hinselmann & Schiller: Intermediate accuracy
-
----
-
-## Reproducibility
-
-This analysis is fully reproducible:
-- All raw data files included
-- Single R script runs entire analysis
-- All outputs automatically generated
-- No manual steps required
-
-To reproduce:
-```r
-setwd("your_project_directory")
-source("scripts/analysis_eda_risk_modeling.R")
-```
-
----
-
-## References
-
-- Bray F, Laversanne M, Sung H, et al. Global cancer statistics 2022: GLOBOCAN estimates of incidence and mortality worldwide for 36 cancers in 185 countries. *CA Cancer J Clin*. 2024;74(3):229-263. doi:10.3322/caac.21834
-
-- Fernandes K, Cardoso JS, Fernandes J. Cervical Cancer (Risk Factors) [Dataset]. UCI Machine Learning Repository. 2017. https://doi.org/10.24432/C5Z310
-
-- Our World in Data. Rate of new cervical cancer cases. https://ourworldindata.org/grapher/rate-of-new-cervical-cancer-cases-gco
-
-- WHO Global Health Observatory. Countries with a national screening program for cervical cancer. https://ourworldindata.org/grapher/countries-with-national-cervical-cancer-screening-program
-
----
-
-## Portfolio Value
-
-This project demonstrates:
-
-1. **Statistical Rigor:** Logistic regression, hypothesis testing, effect size estimation (odds ratios)
-2. **R Mastery:** Data cleaning, visualization (ggplot2), model fitting, reproducible scripts
-3. **Domain Knowledge:** Epidemiological methods, clinical risk factors, diagnostic accuracy
-4. **Communication:** Publication-ready figures, clear documentation, professional GitHub repository
-5. **Healthcare Informatics:** Real cervical cancer epidemiology, screening program analysis, diagnostic test comparison
-
----
-
-## Author Notes
-
-- Analysis scope: **EDA + Risk Modeling only** (not temporal trends, spatial clustering, or Bayesian inference)
-- Realistic timeline: ~12 hours R work
-- Demonstrates focus on quality over scope; interpretable results over complexity
-
----
-
-**License:** CC BY 4.0 (Open source for educational use)  
-**Last Updated:** May 2026
+- `scripts/analysis.R` — complete analysis
+- `data/` — source datasets
+- `results/` — outputs (figures, tables)
+- `documentation/METHODOLOGY.md` — technical details
 
