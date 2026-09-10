@@ -20,7 +20,7 @@ Logistic regression, ROC analysis, geographic disparities ranking. All analysis 
 
 - Patient factors: UCI ML Repository (858 patients, 36 variables)
 - Incidence: Our World in Data / GLOBOCAN 2022 (185 countries)
-- Screening programs: WHO / Our World in Data (776 countries)
+- Screening programs: WHO / Our World in Data (185 countries)
 
 ## Code
 
